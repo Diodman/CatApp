@@ -1,68 +1,91 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Image, View, Text, Button } from 'react-native';
+import { StyleSheet, Image, ImageBackground, View, Text, TouchableOpacity } from 'react-native';
 
 const HomeScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
-    <View style={styles.content}>
-      <Image
-        style={styles.image}
-        source={require('D:/AwesomeProject/image/cat1.jpg')} // Замените на путь к вашему изображению
-        resizeMode="cover"
-      />
-      <Text style={styles.title}>Котики-обормотики!</Text>
-      <Text style={styles.subtitle}>Самые милые котики только у нас.</Text>
+      <ImageBackground
+        style={styles.background}
+        
+      >
+        <View style={styles.content}>
+          <Text style={styles.title}>Добро пожаловать в мир котиков!</Text>
+          <Image
+            style={styles.image}
+            source={require('./image/cat1.jpg')}
+            resizeMode="cover"
+          />
+        </View>
+        <View style={styles.footer}>
+          <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Login')}>
+            <Text style={styles.buttonText}>Войти</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Register')}>
+            <Text style={styles.buttonText}>Регистрация</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Me')}>
+            <Text style={styles.buttonText}>О нас</Text>
+          </TouchableOpacity>
+        </View>
+        <StatusBar style="auto" />
+      </ImageBackground>
     </View>
-    <View style={styles.footer}>
-      <View style={styles.menu}>
-      <Button title="Войти" onPress={() => navigation.navigate('Login')} />
-      <Button title="О нас" onPress={() => navigation.navigate('Me')} />
-        <Button title="Главная страница" onPress={() => navigation.navigate('Home')} />
-      </View>
-    </View>
-    <StatusBar style="auto" />
-  </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#ffffff',
+  },
+  background: {
+    flex: 1,
+    resizeMode: 'cover',
+    justifyContent: 'center',
   },
   content: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
   },
-  image: {
-    width: 250,
-    height: 250,
-    marginBottom: 16,
-  },
   title: {
-    fontSize: 28,
+    fontSize: 32,
     fontWeight: 'bold',
     color: '#6200EE',
     textAlign: 'center',
+    marginBottom: 16,
+  },
+  image: {
+    width: 250,
+    height: 250,
+    borderRadius: 125,
+    marginBottom: 16,
   },
   subtitle: {
-    fontSize: 18,
-    color: '#444444',
+    fontSize: 30,
+    color: '#FFFFFF',
     textAlign: 'center',
+    marginBottom: 32,
+    marginHorizontal: 20,
   },
   footer: {
-    backgroundColor: '#004080',
+    alignItems: 'center',
     paddingBottom: 20,
   },
-  menu: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center',
+  button: {
+    backgroundColor: '#6200EE',
+    paddingVertical: 12,
+    paddingHorizontal: 24,
+    borderRadius: 5,
+    marginBottom: 10,
   },
-  menuItem: {
-    color: '#FFFFFF',
+  buttonText: {
+    color: 'white',
     fontSize: 16,
+    fontWeight: 'bold',
   },
 });
 

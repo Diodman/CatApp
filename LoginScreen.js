@@ -1,11 +1,14 @@
-// LoginScreen.js
 import React, { useState } from 'react';
-import { View, TextInput, Button, StyleSheet, Alert } from 'react-native';
-import users from './database'; // Импортируем базу данных
+import { View, Text, TextInput, Button, StyleSheet, TouchableOpacity, Alert } from 'react-native';
+import users from './database';
 
 const LoginScreen = ({ navigation }) => {
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
+  
+  const handleRegistration = () => {
+    navigation.navigate('Register');
+  };
 
   const handleLoginChange = (text) => {
     setLogin(text);
@@ -43,7 +46,12 @@ const LoginScreen = ({ navigation }) => {
         value={password}
         secureTextEntry={true}
       />
-      <Button title="Вход" onPress={handleLogin} />
+      <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
+        <Text style={styles.buttonText}>Вход</Text>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={handleRegistration}>
+        <Text style={styles.registerLink}>Нет аккаунта? Зарегистрироваться</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -53,14 +61,32 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: '#ffffff',
   },
   input: {
     borderWidth: 1,
-    borderColor: 'gray',
+    borderColor: '#6200EE',
     borderRadius: 5,
     padding: 10,
     marginBottom: 20,
     width: 300,
+  },
+  loginButton: {
+    backgroundColor: '#6200EE',
+    borderRadius: 5,
+    padding: 10,
+    width: 300,
+    alignItems: 'center',
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  registerLink: {
+    marginTop: 10,
+    color: '#6200EE',
+    textDecorationLine: 'underline',
   },
 });
 
