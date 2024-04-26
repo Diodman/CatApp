@@ -9,6 +9,7 @@ const CatFactsScreen = () => {
     fetchCatFactAndImage();
   }, []);
 
+
   const fetchCatFactAndImage = async () => {
     try {
       const factResponse = await fetch('https://catfact.ninja/fact');

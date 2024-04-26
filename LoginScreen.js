@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, TouchableOpacity, Alert } from 'react-native';
-import users from './database';
+import { useDispatch, useSelector } from 'react-redux';
+import { loginUser } from './actions';
 
-const LoginScreen = ({ navigation }) => {
+  const LoginScreen = ({ navigation }) => {
+  const dispatch = useDispatch();
+  const users = useSelector(state => state.user.users);
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
-  
-  const handleRegistration = () => {
-    navigation.navigate('Register');
-  };
 
   const handleLoginChange = (text) => {
     setLogin(text);
@@ -19,15 +18,18 @@ const LoginScreen = ({ navigation }) => {
   };
 
   const handleLogin = () => {
-    // Поиск пользователя в базе данных по введенному логину
-    const user = users.find((user) => user.username === login);
+    if (!login || !password) {
+      Alert.alert('Ошибка', 'Введите логин и пароль');
+      return;
+    }
 
-    // Если пользователь найден и его пароль совпадает, выводим сообщение о успешном входе
-    if (user && user.password === password) {
-      Alert.alert('Успешный вход', 'Вход выполнен успешно');
-      navigation.navigate('CatFacts'); // Переход на страницу с фактами о котах
+    const user = users.find(user => user.username === login);
+
+    if (user) {
+      dispatch(loginUser({ username: login, password }));
+      navigation.navigate('CatFacts'); 
     } else {
-      Alert.alert('Ошибка', 'Неверный логин или пароль');
+      Alert.alert('Ошибка', 'Пользователь с таким логином не найден');
     }
   };
 
@@ -49,7 +51,7 @@ const LoginScreen = ({ navigation }) => {
       <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
         <Text style={styles.buttonText}>Вход</Text>
       </TouchableOpacity>
-      <TouchableOpacity onPress={handleRegistration}>
+      <TouchableOpacity onPress={() => navigation.navigate('Register')}>
         <Text style={styles.registerLink}>Нет аккаунта? Зарегистрироваться</Text>
       </TouchableOpacity>
     </View>
