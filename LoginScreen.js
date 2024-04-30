@@ -23,7 +23,7 @@ import { loginUser } from './actions';
       return;
     }
 
-    const user = users.find(user => user.username === login);
+    const user = users.find(user => user.username === login && user.password === password);
 
     if (user) {
       dispatch(loginUser({ username: login, password }));

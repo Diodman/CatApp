@@ -25,7 +25,7 @@ const MeScreen = ({ navigation }) => {
         <View style={styles.content}>
           <Image
             style={styles.image}
-            source={require('D:/AwesomeProject/image/me.jpg')}
+            source={require('./image/me.jpg')}
             resizeMode="cover"
           />
           <Text style={styles.title}>Привет, я Даниил!</Text>
@@ -44,7 +44,7 @@ const MeScreen = ({ navigation }) => {
         <View style={styles.content}>
           <Image
             style={styles.image}
-            source={require('D:/AwesomeProject/image/artem.jpg')}
+            source={require('./image/artem.jpg')}
             resizeMode="cover"
           />
           <Text style={styles.title}>Привет, я Артем!</Text>
